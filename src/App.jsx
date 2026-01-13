@@ -41,9 +41,21 @@ function App() {
     productModalRef.current.show();
     setModalType(type);
   };
+  
+
+  //API
+  const [products, setProducts] = useState([]);
+  const getProductData=async()=>{
+    try{
+      const response = await axios.get(`${API_BASE}/api/${API_PATH}/admin/products`);
+      setProducts(response.data.products);
+    }catch(error){
+      console.error(error.response.data.message);
+    }
+  }
   const updateProductData=async(id)=>{
     let product;
-    if(modalType==='eidt'){
+    if(modalType==='edit'){
       product=`product/${id}`;
     }else{
       product=`product`;
@@ -63,13 +75,15 @@ function App() {
     };
     try{
       let response;
-      if(modalType==='eidt'){
-        response=await axios.get(url,productData);
+      if(modalType==='edit'){
+        response=await axios.put(url,productData);
         console.log('更新',response.data);
       }else{
         response=await axios.post(url,productData);
-        console.log('更新',response.data);
+        console.log('新增',response.data);
       }
+      productModalRef.current.hide();
+      getProductData();
     }catch(err){
       if(modalType === "edit"){
         console.error("更新失敗", err.response.data.message);
@@ -79,17 +93,18 @@ function App() {
     }
 
   }
-
-  //API
-  const [products, setProducts] = useState([]);
-  const getProductData=async()=>{
-    try{
-      const response = await axios.get(`${API_BASE}/api/${API_PATH}/admin/products`);
-      setProducts(response.data.products);
-    }catch(error){
-      console.error(error.response.data.message);
+  const delProductData=async(id)=>{
+    try {
+      const response = await axios.delete(
+        `${API_BASE}/api/${API_PATH}/admin/product/${id}`
+      );
+      console.log("刪除成功", response.data);
+      productModalRef.current.hide();
+      getProductData();
+    }catch(err){
+      console.error("刪除失敗", err.response.data.message);
     }
-  }
+  };
 
 
   const [formData, setFormData] = useState({
