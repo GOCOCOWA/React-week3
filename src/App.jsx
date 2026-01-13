@@ -210,7 +210,7 @@ function App() {
         className="btn btn-primary"
         onClick={() => openModal({}, "new")}
       >
-        ＋ 建立新產品
+        建立新產品
       </button>
     </div>
 
