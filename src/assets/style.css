@@ -31,3 +31,11 @@ img {
 .images {
   height: 150px;
 }
+.img-preview {
+  width: 100%;       /* 寬度隨容器自適應 */
+  max-height: 200px; /* 限制高度，避免圖片太長 */
+  object-fit: cover; /* 保持比例，多餘的部分會被裁切（不會變形） */
+  border-radius: 8px;/* 加一點圓角比較美觀 */
+  margin-top: 10px;
+  border: 1px solid #ddd; /* 加個邊框，如果是白色圖片才看得出範圍 */
+}
