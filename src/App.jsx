@@ -124,9 +124,9 @@ function App() {
       getProductData();
     }catch(err){
       if(modalType === "edit"){
-        console.error("更新失敗", err.response.data.message);
+        console.error("更新失敗");
       }else{
-        console.error("新增失敗", err.response.data.message);
+        console.error("新增失敗");
       }
     }
 
